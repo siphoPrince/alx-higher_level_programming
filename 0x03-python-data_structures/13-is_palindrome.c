@@ -1,91 +1,75 @@
-#include <stdio.h>
-#include <stdlib.h>
+/*
+ * File: 13-is_palindrome.c
+ * Auth: Mbah Nkemdinma
+ */
+
+#include "lists.h"
 
 /**
- * struct listint_s - singly linked list
- * @n: integer
- * @next: points to the next node
+ * reverse_listint - Reverses a singly-linked listint_t list.
+ * @head: A pointer to the starting node of the list to reverse.
  *
- * Description: singly linked list node structure
- * for Betty style compliance
+ * Return: A pointer to the head of the reversed list.
  */
-typedef struct listint_s
+listint_t *reverse_listint(listint_t **head)
 {
-    int n;
-    struct listint_s *next;
-} listint_t;
+	listint_t *node = *head, *next, *prev = NULL;
 
-/**
- * reverse_list - Reverses a linked list
- * @head: Pointer to the head of the list
- *
- * Return: Pointer to the reversed list
- */
-listint_t *reverse_list(listint_t *head)
-{
-    listint_t *prev = NULL;
-    listint_t *current = head;
-    listint_t *next = NULL;
+	while (node)
+	{
+		next = node->next;
+		node->next = prev;
+		prev = node;
+		node = next;
+	}
 
-    while (current != NULL)
-    {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
-
-    return prev;
+	*head = prev;
+	return (*head);
 }
 
 /**
- * is_palindrome - Checks if a singly linked list is a palindrome
- * @head: Double pointer to the head of the list
+ * is_palindrome - Checks if a singly linked list is a palindrome.
+ * @head: A pointer to the head of the linked list.
  *
- * Return: 0 if not a palindrome, 1 if a palindrome
+ * Return: If the linked list is not a palindrome - 0.
+ *         If the linked list is a palindrome - 1.
  */
 int is_palindrome(listint_t **head)
 {
-    listint_t *slow = *head;
-    listint_t *fast = *head;
-    listint_t *prev = *head;
-    listint_t *second_half = NULL;
-    int is_palindrome = 1;
+	listint_t *tmp, *rev, *mid;
+	size_t size = 0, i;
 
-    if (*head == NULL || (*head)->next == NULL)
-        return (is_palindrome);
+	if (*head == NULL || (*head)->next == NULL)
+		return (1);
 
-    while (fast != NULL && fast->next != NULL)
-    {
-        fast = fast->next->next;
-        prev = slow;
-        slow = slow->next;
-    }
+	tmp = *head;
+	while (tmp)
+	{
+		size++;
+		tmp = tmp->next;
+	}
 
-    if (fast != NULL)
-    {
-        second_half = slow->next;
-    }
-    else
-    {
-        second_half = slow;
-    }
+	tmp = *head;
+	for (i = 0; i < (size / 2) - 1; i++)
+		tmp = tmp->next;
 
-    prev->next = NULL;
-    second_half = reverse_list(second_half);
+	if ((size % 2) == 0 && tmp->n != tmp->next->n)
+		return (0);
 
-    while (*head != NULL && second_half != NULL)
-    {
-        if ((*head)->n != second_half->n)
-        {
-            is_palindrome = 0;
-            break;
-        }
+	tmp = tmp->next->next;
+	rev = reverse_listint(&tmp);
+	mid = rev;
 
-        *head = (*head)->next;
-        second_half = second_half->next;
-    }
+	tmp = *head;
+	while (rev)
+	{
+		if (tmp->n != rev->n)
+			return (0);
+		tmp = tmp->next;
+		rev = rev->next;
+	}
+	reverse_listint(&mid);
 
-    return (is_palindrome);
+	return (1);
 }
 
