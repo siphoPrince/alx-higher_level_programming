@@ -98,7 +98,7 @@ class Rectangle:
 
     def __str__(self):
         """
-        Returns a string representation of the rectangle using the print_symbol.
+        Returns a string using the print_symbol.
 
         Returns:
             str: String representation of the rectangle.
@@ -131,7 +131,7 @@ class Rectangle:
     @staticmethod
     def bigger_or_equal(rect_1, rect_2):
         """
-        Compares two rectangles and returns the bigger or equal rectangle based on the area.
+        Compares two bigger or equal rectangle based on the area.
 
         Args:
             rect_1 (Rectangle): First rectangle to compare.
