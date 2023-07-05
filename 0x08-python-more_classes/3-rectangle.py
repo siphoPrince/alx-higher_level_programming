@@ -1,17 +1,15 @@
 #!/usr/bin/python3
-"""Defines a rectangle class"""
+"""defines a rectangle"""
 
 
 class Rectangle:
-    """represents a rectangle"""
+    """
+    defines a rectangle
+    """
+
     def __init__(self, width=0, height=0):
         """
-        Constructor for Rectangle class.
-        Initializes the width and height of the rectangle.
-
-        Args:
-            width (int): Width of the rectangle (default is 0).
-            height (int): Height of the rectangle (default is 0).
+        Initializes private attribute width and height
         """
         self.width = width
         self.height = height
@@ -19,98 +17,60 @@ class Rectangle:
     @property
     def width(self):
         """
-        Getter method for retrieving the width of the rectangle.
-
-        Returns:
-            int: Width of the rectangle.
+        width get/set
         """
         return self.__width
 
     @width.setter
     def width(self, value):
         """
-        Setter method for setting the width of the rectangle.
-
-        Args:
-            value (int): New width value.
-
-        Raises:
-            TypeError: If the width is not an integer.
-            ValueError: If the width is less than 0.
+        width set/get
         """
         if not isinstance(value, int):
-            raise TypeError("width must be an integer")
+            raise TypeError('width must be an integer')
         if value < 0:
-            raise ValueError("width must be >= 0")
+            raise ValueError('width must be >= 0')
         self.__width = value
 
     @property
     def height(self):
         """
-        Getter method for retrieving the height of the rectangle.
-
-        Returns:
-            int: Height of the rectangle.
+        width get/set
         """
         return self.__height
 
     @height.setter
     def height(self, value):
         """
-        Setter method for setting the height of the rectangle.
-
-        Args:
-            value (int): New height value.
-
-        Raises:
-            TypeError: If the height is not an integer.
-            ValueError: If the height is less than 0.
+        width set/get
         """
         if not isinstance(value, int):
-            raise TypeError("height must be an integer")
+            raise TypeError('width must be an integer')
         if value < 0:
-            raise ValueError("height must be >= 0")
+            raise ValueError('width must be >= 0')
         self.__height = value
 
     def area(self):
         """
-        Calculates the area of the rectangle.
-
-        Returns:
-            int: Area of the rectangle.
+        Returns a area
         """
-        return self.__width * self.__height
+        return self.width * self.height
 
     def perimeter(self):
         """
-        Calculates the perimeter of the rectangle.
-
-        Returns:
-            int: Perimeter of the rectangle.
+        Returns a rectangle's perimeter
         """
-        if self.__width == 0 or self.__height == 0:
+        if self.width == 0 or self.height == 0:
             return 0
-        return 2 * (self.__width + self.__height)
+        return (self.width + self.height) * 2
 
     def __str__(self):
         """
-        Returns a string representation using the # symbol.
-
-        Returns:
-            str: String representation of the rectangle.
+        String Representation
         """
-        if self.__width == 0 or self.__height == 0:
-            return ""
-        rectangle_str = ""
-        for _ in range(self.__height):
-            rectangle_str += "#" * self.__width + "\n"
-        return rectangle_str[:-1]
-
-    def __repr__(self):
-        """
-        Returns a string representation of the rectangle object.
-
-        Returns:
-            str: String representation of the rectangle object.
-        """
-        return "Rectangle({}, {})".format(self.__width, self.__height)
+        string = ""
+        if self.width == 0 or self.height == 0:
+            return string
+        for i in range(self.height):
+            string += '#' * self.width + '\n'
+        return string[:-1]
