@@ -1,10 +1,9 @@
 #!/usr/bin/python3
-"""defines a function"""
-
-
+"""Defines a JSON writing function."""
 import json
 
+
 def save_to_json_file(my_obj, filename):
-    """refers to save to jason file"""
-    with open(filename, 'w') as file:
-        json.dump(my_obj, file)
+    """defines a JSON representation."""
+    with open(filename, "w") as l:
+        json.dump(my_obj, l)
