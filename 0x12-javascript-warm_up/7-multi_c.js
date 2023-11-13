@@ -8,4 +8,7 @@ if (!isNaN(stringConvet)) {
   for (let i = 0; i < stringConvet; i++) {
     console.log('c is fun');
   }
-}
+} else {
+      console.log('Missing number of occurrences');
+  }
+
