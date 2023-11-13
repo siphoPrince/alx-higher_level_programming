@@ -1,17 +1,17 @@
 #!/usr/bin/node
 
-const myArgs = process.argv[2];
+const sizeArg = process.argv[2];
 
-const argConvert = parseInt(myArgs);
+const size = parseInt(sizeArg);
 
-if (!isNaN(argConvert) && isFinite(argConvert) && argConvert > 0) {
-  for (let i = 0; i < argConvert; i++) {
-    let row = '';
-    for (let j = 0; j < argConvert; j++) {
-      row += 'X ';
+if (!isNaN(size) && isFinite(size) && size > 0) {
+    for (let i = 0; i < size; i++) {
+        let row = '';
+        for (let j = 0; j < size; j++) {
+            row += 'X';
+        }
+        console.log(row);
     }
-    console.log(row);
-  }
 } else {
-  console.log('Missing size');
+    console.log('Missing size');
 }
