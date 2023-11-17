@@ -18,11 +18,9 @@ if __name__ == "__main__":
             )
     cur = conn.cursor()
 
-    query = "SELECT cities.id, cities.name, states.name FROM cities JOIN " \
-            "states ON cities.state_id = states.id"
-
-    if cur.execute(query):
-        rows = cur.fetchall()
+    cur.execute("SELECT * FROM states WHERE name=%s ORDER BY states.id",
+                    (argv[4], ))
+    rows = cur.fetchall()
 
     for row in rows:
         print(row)
