@@ -1,23 +1,21 @@
 #!/usr/bin/python3
+"""
+geting the states database
+"""
+
+
 import MySQLdb
-import sys
+from sys import argv
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("used: {} <username> <password> <database>".format(sys.argv[0]))
-        sys.exit(1)
-
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-
     db = MySQLdb.connect(
             host="localhost",
             port=3306,
-            password=password,
-            db=database,
-            user=username
+            charset="utf8",
+            password=argv[2],
+            db=argv[3],
+            user=argv[1]
             )
 
     cursor = db.cursor()
