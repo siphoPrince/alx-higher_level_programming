@@ -1,32 +1,23 @@
 #!/usr/bin/python3
 """
     A script that lists all State objects from the database hbtn_0e_6_usa
-    Username, password and dbname wil be passed as arguments to the script.
-"""
-
+    Username, password and dbname wil be passed as arguments
+    """
 
 import sys
+import sqlalchemy
 from model_state import Base, State
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-
+from sqlalchemy.orm import Session
 
 if __name__ == "__main__":
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'.format(
-                           sys.argv[1], sys.argv[2], sys.argv[3]),
-                           pool_pre_ping=True)
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database_name = sys.argv[3]
+ 
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format(username, password, database_name), pool_pre_ping=True)
+    s = Session(engine)
 
-    Session = sessionmaker(bind=engine)
-    Base.metadata.create_all(engine)
-
-    # create a session
-    session = Session()
-
-    # extract all states
-    states = session.query(State).order_by(State.id).all()
-
-    # print all states
-    for state in states:
-        print("{}: {}".format(state.id, state.name))
-
-    session.close()
+    for i in s.query(State).order_by(State.id).all():
+        print(f"{i.id}: {i.name}")
+    s.close()
