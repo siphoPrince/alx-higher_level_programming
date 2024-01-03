@@ -15,12 +15,13 @@ request.get({ url, encoding: 'utf-8' }, (error, response, body) => {
         console.error(writeError);
       } else {
         console.log(`Webpage content saved to: ${filePath}`);
+        
         // Read and print the contents of the saved file
         fs.readFile(filePath, 'utf-8', (readError, fileContent) => {
           if (readError) {
             console.error(readError);
           } else {
-            console.log(fileContent);
+            console.log(fileContent.trim());  // Trim to remove leading/trailing whitespaces
           }
         });
       }
