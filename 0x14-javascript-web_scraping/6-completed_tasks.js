@@ -1,5 +1,4 @@
 #!/usr/bin/node
-/* computing a number of tasks that computed by user id */
 
 const request = require('request');
 const url = process.argv[2];
@@ -22,6 +21,6 @@ request(url, function (err, response, body) {
     }
     console.log(completed);
   } else {
-    console.log('An error occurred. Status code: ' + response.statusCode);
+    console.log('error Status code: ' + response.statusCode);
   }
 });
