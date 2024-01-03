@@ -1,30 +1,27 @@
 #!/usr/bin/node
+/* computing a number of tasks that computed by user id */
 
 const request = require('request');
-const apiUrl = process.argv[2];
+const url = process.argv[2];
 
-request.get(apiUrl, (error, response, body) => {
-  if (error) {
-    console.error(error);
-  } else {
-    try {
-      const tasks = JSON.parse(body);
-
-      // Filter tasks by completion status (completed === true)
-      const completedTasks = tasks.filter((task) => task.completed);
-
-      // Compute the number of completed tasks for each user
-      const completedTasksByUser = completedTasks.reduce((accumulator, task) => {
-        const userId = task.userId;
-        accumulator[userId] = (accumulator[userId] || 0) + 1;
-        return accumulator;
-      }, {});
-
-      // Print users with completed tasks in the desired format
-      console.log(JSON.stringify(completedTasksByUser, null, 2));
-    } catch (parseError) {
-      console.error(`Error parsing JSON: ${parseError}`);
+request(url, function (err, response, body) {
+  if (err) {
+    console.log(err);
+  } else if (response.statusCode === 200) {
+    const completed = {};
+    const tasks = JSON.parse(body);
+    for (const i in tasks) {
+      const task = tasks[i];
+      if (task.completed === true) {
+        if (completed[task.userId] === undefined) {
+          completed[task.userId] = 1;
+        } else {
+          completed[task.userId]++;
+        }
+      }
     }
+    console.log(completed);
+  } else {
+    console.log('An error occurred. Status code: ' + response.statusCode);
   }
 });
-
